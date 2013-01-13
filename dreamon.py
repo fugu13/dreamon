@@ -26,7 +26,18 @@ def callback():
         redirect_uri='http://slcgoals.cloudapp.net/callback')
     print request.args['code']
     client.request_token(code=request.args['code'])
-    print client.request('/sections')
+    access_token = client.access_token
+
+    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/home',
+        headers={
+            'Accept': 'application/vnd.slc+json',
+            'Content-Type': 'application/vnd.slc+json',
+            'Authorization': 'bearer %s' % access_token
+        })
+    print response.code
+    print response.json()
+    
+    #print client.request('/sections')
     return "Working!"
 
 if __name__ == '__main__':
