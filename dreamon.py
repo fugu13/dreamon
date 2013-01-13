@@ -77,7 +77,7 @@ def suggest(identifier):
         return redirect('/suggest/%s' % identifier)
     else:
         student = database[str(identifier)]
-        suggestions = frozenset(database[str('suggest' + identifier)])
+        suggestions = frozenset(database.get(str('suggest' + identifier)) or [])
         #okay, get list of clubs, courses, check ones of interest, click recommend.
         #check ones already checked
 
