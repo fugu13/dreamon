@@ -18,8 +18,7 @@
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li class="active"><a href="#">Home</a></li>
-          <!-- <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li> -->
+          {% block navli %}{% endblock %}
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -27,16 +26,7 @@
 </div>
 
 <div class="container">
-    <div class="hero-unit">
-        <h1>Dream On</h1>
-        <p>Intervene to aid student engagement by communicating about dreams.</p>
-    </div>
-    <div class="row">
-        {% for student in students %}
-        <div class="span6"><a href="#teacher">{{student.name.firstName}} {{student.name.lastSurname}}</a></div>
-        <div class="span3"><a href="#student">student view</a></div>
-        {% endfor %}
-    </div>
+    {% block content %}{% endblock %}
 
 </div> <!-- /container -->
 
