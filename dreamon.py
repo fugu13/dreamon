@@ -8,7 +8,7 @@ import requests
 from sanction.client import Client
 
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user
-from flask import Flask, redirect, request, session, render_template
+from flask import Flask, flash, redirect, request, session, render_template
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.setup_app(app)
