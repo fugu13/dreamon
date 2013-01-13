@@ -29,7 +29,7 @@ def callback():
     client.request_token(code=request.args['code'])
     access_token = client.access_token
 
-    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/sections',
+    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/sections/f85217b8f37512d220fe36eab0077d1508252334_id/studentSectionAssociations/students',
         headers={
             'Accept': 'application/vnd.slc+json',
             'Content-Type': 'application/vnd.slc+json',
