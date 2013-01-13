@@ -6,7 +6,7 @@ import requests
 from sanction.client import Client
 
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user
-from flask import Flask, redirect, request, session
+from flask import Flask, redirect, request, session, render_template
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.setup_app(app)
@@ -50,14 +50,13 @@ def login():
 @app.route('/')
 @login_required
 def root():
-    print current_user.get_id()
     response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/sections/44db6919c253745e4c78c6f903a57401ac26c4a3_id/studentSectionAssociations/students',
         headers={
             'Accept': 'application/vnd.slc+json',
             'Content-Type': 'application/vnd.slc+json',
             'Authorization': 'bearer %s' % current_user.get_id()
         })
-    return json.dumps(response.json(), indent=2)
+    return render_template('students.html', students=response.json())
     
 
 @app.route('/callback')
