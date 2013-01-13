@@ -1,4 +1,6 @@
 import json
+import shelve
+import bsddb
 from ConfigParser import SafeConfigParser
 from hashlib import md5
 
@@ -18,7 +20,7 @@ client_id = config.get('credentials', 'client_id')
 shared_secret = config.get('credentials', 'shared_secret')
 app.secret_key = config.get('login', 'secret_key')
 
-awful_database = {}
+database = shelve.BsdDbShelf(bsddb.hashopen('database.db'))
 
 class User(UserMixin):
     def __init__(self, access_token):
@@ -29,13 +31,13 @@ class User(UserMixin):
 
 def load_user(access_token):
     user = User(access_token)
-    awful_database[user.get_auth_token()] = user.get_id()
+    database[user.get_auth_token()] = user.get_id()
     return user
 login_manager.user_loader(load_user)
 
 @login_manager.token_loader
 def token_user(access_hash):
-    return User(awful_database[access_hash])
+    return User(database[access_hash])
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -56,8 +58,16 @@ def root():
             'Content-Type': 'application/vnd.slc+json',
             'Authorization': 'bearer %s' % current_user.get_id()
         })
-    return render_template('students.html', students=response.json())
+    students = response.json()
+    for student in students:
+        database[student['id']] = student
+    return render_template('students.html', students=students)
     
+@app.route('/student/<identifier>')
+def student(identifier):
+    student = database[identifier]
+    
+
 
 @app.route('/callback')
 def callback():
@@ -67,7 +77,6 @@ def callback():
         redirect_uri='http://slcgoals.cloudapp.net/callback')
     client.request_token(code=request.args['code'])
     access_token = client.access_token
-    #TODO: load_user is NoneType. Just add to database and do this manually
     login_user(load_user(access_token))
     return redirect('/')
 
