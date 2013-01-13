@@ -26,7 +26,7 @@ def callback():
         redirect_uri='http://slcgoals.cloudapp.net/callback')
     print request.args['code']
     client.request_token(code=request.args['code'])
-    print client.request('/home')
+    print client.request('/sections')
     return "Working!"
 
 if __name__ == '__main__':
