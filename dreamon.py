@@ -81,6 +81,19 @@ def step(identifier):
         if not journey:
             journey = [{}]
 
+        objective = {
+            'academicSubject': 'Miscellaneous',
+            'description': prompt,
+            'objective': prompt[:59],
+            'objectiveGradeLevel': 'Ungraded'
+        }
+        response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/learningObjectives',
+            headers={
+                'Accept': 'application/vnd.slc+json',
+                'Content-Type': 'application/vnd.slc+json',
+                'Authorization': 'bearer %s' % current_user.get_id()
+            }, data=json.dumps(objective))
+        print response.status_code, response.text
         #TODO: WRITE TO SLC
         journey[-1]['accomplishment'] = accomplishment
         journey.append({'prompt': prompt})
