@@ -72,7 +72,7 @@ def assist(identifier):
 @app.route('/suggest/<identifier>', methods=['GET', 'POST'])
 def suggest(identifier):
     if request.method == 'POST':
-        suggestions = request.args.getlist('course')
+        suggestions = request.form.getlist('course')
         print suggestions
         database[str('suggest' + identifier)] = suggestions
         return redirect('/suggest/%s' % identifier)
