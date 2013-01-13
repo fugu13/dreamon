@@ -27,9 +27,10 @@
 </div>
 
 <div class="container">
-
-    <h1>Dream On</h1>
-    <p>Select a student</p>
+    <div class="hero-unit">
+        <h1>Dream On</h1>
+        <p>Select a student</p>
+    </div>
     <div class="row">
         {% for student in students %}
         <div class="span6"><a href="#teacher">{{student.name.firstName}} {{student.name.lastSurname}}</a></div>
