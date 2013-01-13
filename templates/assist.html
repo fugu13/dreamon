@@ -3,10 +3,11 @@
 <li><a href="/">Home</a></li>
 <li class="active"><a href="/assist/{{student.id}}">{{student.name.firstName}} {{student.name.lastSurname}}</a></li>
 <li><a href="/suggest/{{student.id}}">Suggest Resources</a></li>
+<li><a href="/step/{{student.id}}">Step</a></li>
 {% endblock %}
 {% block content %}
 <div class="hero-unit">
-    <h1>{% if journey %}{{journey[0].accomplishment}}{% else %}Still dreaming...{% endif %}</h1>
-    <p><a href="/step/{{student.id}}">{% if journey %}Continue{% else %}Start{% endif %} the journey.</a></p>
+    <h1>{% if start %}{{start}}{% else %}Still dreaming...{% endif %}</h1>
+    <p><a href="/step/{{student.id}}">{% if start %}Continue{% else %}Start{% endif %} the journey.</a></p>
 </div>
 {% endblock %}

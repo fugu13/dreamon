@@ -68,7 +68,17 @@ def root():
 def assist(identifier):
     student = database[str(identifier)]
     journey = database.get(str('journey' + identifier), [])
-    return render_template('assist.html', student=student)
+    start = journey[0] if journey else None
+    rest = journey[1:]
+    return render_template('assist.html', student=student, start=start, rest=rest)
+
+@app.route('/step/<identifier>')
+def step(identifier):
+    student = database.get(str(identifier), {})
+    journey = database.get(str('journey' + identifier), [])
+    prompt = journey[-1].prompt if journey else "What's your dream?"
+    goal = journey[0].accomplishment if journey else None
+    return render_template('step.html', student=student, prompt=prompt, goal=goal)
 
 @app.route('/suggest/<identifier>', methods=['GET', 'POST'])
 def suggest(identifier):
