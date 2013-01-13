@@ -70,7 +70,7 @@ def assist(identifier):
     #okay, get list of clubs, courses, check ones of interest, click recommend.
     #check ones already checked
 
-    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs?programType=Other',
+    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs/Math%20Club',
         headers={
             'Accept': 'application/vnd.slc+json',
             'Content-Type': 'application/vnd.slc+json',
