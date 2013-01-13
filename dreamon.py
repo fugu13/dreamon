@@ -15,6 +15,7 @@ config = SafeConfigParser()
 config.read('config.ini')
 client_id = config.get('credentials', 'client_id')
 shared_secret = config.get('credentials', 'shared_secret')
+app.secret_key = config.get('login', 'secret_key')
 
 awful_database = {}
 
