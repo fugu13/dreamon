@@ -67,6 +67,7 @@ def root():
 @app.route('/assist/<identifier>')
 def assist(identifier):
     student = database[str(identifier)]
+    journey = database.get(str('journey' + identifier), [])
     return render_template('assist.html', student=student)
 
 @app.route('/suggest/<identifier>', methods=['GET', 'POST'])
@@ -79,7 +80,7 @@ def suggest(identifier):
         return redirect('/suggest/%s' % identifier)
     else:
         student = database[str(identifier)]
-        suggestions = frozenset(database.get(str('suggest' + identifier)) or [])
+        suggestions = frozenset(database.get(str('suggest' + identifier), []))
         print suggestions
         #okay, get list of clubs, courses, check ones of interest, click recommend.
         #check ones already checked

@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 <div class="hero-unit">
-    <h1>Student</h1>
-    <p>Student info</p>
+    <h1>{% if len(journey) > 0 %}{{journey[0].accomplishment}}{% else %}Still dreaming...{% endif %}</h1>
+    <p><a href="/step/{{student.id}}">{% if len(journey) > 0 %}Continue{% else %}Start{% endif %} the journey.</a></p>
 </div>
 {% endblock %}
