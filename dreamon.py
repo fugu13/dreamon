@@ -1,5 +1,6 @@
 from ConfigParser import SafeConfigParser
 
+import requests
 from sanction.client import Client
 
 from flask import Flask, redirect, request
