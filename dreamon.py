@@ -67,6 +67,11 @@ def root():
 @app.route('/assist/<identifier>')
 def assist(identifier):
     student = database[str(identifier)]
+    return render_template('assist.html', student=student)
+
+@app.route('/suggest/<identifier>')
+def suggest(identifier):
+    student = database[str(identifier)]
     #okay, get list of clubs, courses, check ones of interest, click recommend.
     #check ones already checked
 
@@ -76,7 +81,9 @@ def assist(identifier):
             'Content-Type': 'application/vnd.slc+json',
             'Authorization': 'bearer %s' % current_user.get_id()
         })
-    return json.dumps(response.json(), indent=2)
+    courses = response.json()
+
+    return render_template('courses.html', courses=courses, student=student)
 
 @app.route('/student/<identifier>')
 def student(identifier):

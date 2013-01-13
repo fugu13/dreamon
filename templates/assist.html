@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block navli %}
+<li><a href="/">Home</a></li>
+<li class="active"><a href="/assist/{{student.id}}">{{student.name.firstName}}</a></li>
+<li><a href="/suggest/{{student.id}}"></a></li>
+{% endblock %}
+{% block content %}
+<div class="hero-unit">
+    <h1>Student</h1>
+    <p>Student info</p>
+</div>
+{% endblock %}
