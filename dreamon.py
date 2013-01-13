@@ -71,9 +71,7 @@ def assist(identifier):
     #check ones already checked
     programs = [dict(zip(['programId', 'programType'], details))
         for details in [
-            ('Drama Club', 'Other'),
-            ('Math Club', 'Other'),
-            ('Profokiev Appreciation Society', 'Other')
+            ('Profokiev Society', 'Other')
         ]
     ]
     print programs
