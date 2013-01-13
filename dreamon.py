@@ -24,6 +24,7 @@ def callback():
         resource_endpoint='https://api.sandbox.slcedu.org/api/rest/v1',
         client_id=client_id, client_secret=shared_secret,
         redirect_uri='http://slcgoals.cloudapp.net/callback')
+    print request.args
     client.request_token(request.args)
     print client.request('/home')
     return "Working!"
