@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block navli %}
+<li><a href="/">Home</a></li>
+<li><a href="/assist/{{student.id}}">{{student.name.firstName}} {{student.name.lastSurname}}</a></li>
+<li><a href="/suggest/{{student.id}}">Suggest Resources</a></li>
+<li class="active"><a href="/step/{{student.id}}">Step</a></li>
+{% endblock %}
+{% block content %}
+<form>
+    <h1>{{prompt}}</h1>
+    {% if goal %}<h2>{{goal}}</h2>{% endif %}
+    <textarea></textarea>
+</form>
+{% endblock %}
