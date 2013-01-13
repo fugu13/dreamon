@@ -66,7 +66,7 @@ def root():
 
 @app.route('/assist/<identifier>')
 def assist(identifier):
-    student = database[identifier]
+    student = database[str(identifier)]
     #okay, get list of clubs, courses, check ones of interest, click recommend.
     #check ones already checked
     response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs',
@@ -79,7 +79,7 @@ def assist(identifier):
 
 @app.route('/student/<identifier>')
 def student(identifier):
-    student = database[identifier]
+    student = database[str(identifier)]
 
 
 
