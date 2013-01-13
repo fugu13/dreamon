@@ -69,14 +69,6 @@ def assist(identifier):
     student = database[str(identifier)]
     #okay, get list of clubs, courses, check ones of interest, click recommend.
     #check ones already checked
-    for program in programs:
-        response = requests.post('https://api.sandbox.slcedu.org/api/rest/v1/programs',
-            headers={
-                'Accept': 'application/vnd.slc+json',
-                'Content-Type': 'application/vnd.slc+json',
-                'Authorization': 'bearer %s' % current_user.get_id()
-            }, data=json.dumps(program))
-        print response.status_code, response.text
 
     response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs',
         headers={
