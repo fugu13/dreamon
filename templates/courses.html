@@ -9,14 +9,17 @@
     <h1>Courses</h1>
     <p>Courses!</p>
 </div>
+<form>
     {% for course in courses %}
-<div class="row">
+    <div class="row">
         <div class="span2">
-            checkbox
+            <input type="checkbox" name="course" value="{{course.id}}" />
         </div>
         <div class="span7">
             {{course.courseTitle}}
         </div>
-</div>
+    </div>
     {% endfor %}
+<input type="submit">
+</form>
 {% endblock %}
