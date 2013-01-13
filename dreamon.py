@@ -63,6 +63,20 @@ def root():
         database[str(student['id'])] = student
     return render_template('students.html', students=students)
     
+
+@app.route('/assist/<identifier>')
+def assist(identifier):
+    student = database[identifier]
+    #okay, get list of clubs, courses, check ones of interest, click recommend.
+    #check ones already checked
+    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs',
+        headers={
+            'Accept': 'application/vnd.slc+json',
+            'Content-Type': 'application/vnd.slc+json',
+            'Authorization': 'bearer %s' % current_user.get_id()
+        })
+    return json.dumps(response.json(), indent=2)
+
 @app.route('/student/<identifier>')
 def student(identifier):
     student = database[identifier]
