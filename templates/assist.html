@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 <div class="hero-unit">
-    <h1>{% if start %}{{start.accomplishment}}{% else %}Still dreaming...{% endif %}</h1>
+    <h1>{% if start %}{% if start.image %}<img src="/static/images/{{start.image}}" />{% endif %}{{start.accomplishment}}{% else %}Still dreaming...{% endif %}</h1>
     <p><a href="/step/{{student.id}}">{% if start %}Continue{% else %}Start{% endif %} the journey.</a></p>
 </div>
 <div>
