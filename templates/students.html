@@ -4,14 +4,14 @@
     <h1>Dream On</h1>
     <p>Intervene to aid student engagement by communicating about dreams.</p>
 </div>
-<div class="row">
     {% for student in students %}
+<div class="row">
         <div class="span6">
             <a href="/assist/{{student.id}}">{{student.name.firstName}} {{student.name.lastSurname}}</a>
         </div>
         <div class="span3">
             <a href="/student/{{student.id}}">student view</a>
         </div>
-    {% endfor %}
 </div>
+    {% endfor %}
 {% endblock %}

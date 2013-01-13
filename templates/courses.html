@@ -9,14 +9,14 @@
     <h1>Courses</h1>
     <p>Courses!</p>
 </div>
-<div class="row">
     {% for course in courses %}
+<div class="row">
         <div class="span2">
             checkbox
         </div>
         <div class="span7">
             {{course.courseTitle}}
         </div>
-    {% endfor %}
 </div>
+    {% endfor %}
 {% endblock %}
