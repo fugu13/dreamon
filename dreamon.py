@@ -60,13 +60,13 @@ def root():
         })
     students = response.json()
     for student in students:
-        database[student['id']] = student
+        database[str(student['id'])] = student
     return render_template('students.html', students=students)
     
 @app.route('/student/<identifier>')
 def student(identifier):
     student = database[identifier]
-    
+
 
 
 @app.route('/callback')
