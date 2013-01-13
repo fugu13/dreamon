@@ -84,7 +84,7 @@ def assist(identifier):
                 'Content-Type': 'application/vnd.slc+json',
                 'Authorization': 'bearer %s' % current_user.get_id()
             }, data=json.dumps(program))
-        print response.status_code, response.raw
+        print response.status_code, response.text
 
     response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs',
         headers={
