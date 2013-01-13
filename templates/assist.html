@@ -16,6 +16,7 @@
             <h3>{{ loop.index }}. {{step.prompt}}</h3>
             <div>
                 {% if step.accomplishment %}
+                    {% if step.image %}<img src="/static/images/{{step.image}}" />{% endif %}
                     {{step.accomplishment}}
                 {% else %}
                     <p><a href="/step/{{student.id}}">Continue the journey.</a></p>

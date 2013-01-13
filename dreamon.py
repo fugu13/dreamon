@@ -1,17 +1,20 @@
 import json
 import shelve
 import bsddb
+import os.path
 from ConfigParser import SafeConfigParser
 from hashlib import md5
 
 import requests
 from sanction.client import Client
+from werkzeug import secure_filename
 
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user
 from flask import Flask, flash, redirect, request, session, render_template
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.setup_app(app)
+app.config['UPLOAD_FOLDER'] = '/home/azureuser/dreamon/static/images'
 
 
 config = SafeConfigParser()
@@ -78,6 +81,11 @@ def step(identifier):
         journey = database.get(str('journey' + identifier), [])
         accomplishment = request.form.get('accomplishment', 'None')
         prompt = request.form.get('prompt', 'None')
+
+        image = request.files['image']
+        filename = secure_filename(image.filename)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
         if not journey:
             journey = [{}]
 
@@ -93,9 +101,13 @@ def step(identifier):
                 'Content-Type': 'application/vnd.slc+json',
                 'Authorization': 'bearer %s' % current_user.get_id()
             }, data=json.dumps(objective))
+        #I would love to tie this to the student, but haven't yet;
+        #that part of the API feels very awkward, with various requirements
+        #that make it hard to do things that are looser (but no less important
+        #to record), such as student-set objectives
         print response.status_code, response.text
-        #TODO: WRITE TO SLC
         journey[-1]['accomplishment'] = accomplishment
+        journey[-1]['image'] = filename
         journey.append({'prompt': prompt})
         database[str('journey' + identifier)] = journey
         return redirect('/step/' + identifier)

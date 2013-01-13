@@ -6,9 +6,10 @@
 <li class="active"><a href="/step/{{student.id}}">Step</a></li>
 {% endblock %}
 {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% if goal %}<h3><em>{{goal}}</em></h3>{% endif %}
     <h1>{{prompt}}</h1>
+    <input type="file" name="image" />
     <textarea name="accomplishment" style="width: 30em; height: 6em;"></textarea>
     <h1>And what will you do next?</h1>
     <textarea name="prompt" style="width: 30em; height: 6em;"></textarea>
