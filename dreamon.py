@@ -1,3 +1,4 @@
+import json
 from ConfigParser import SafeConfigParser
 from hashlib import md5
 
@@ -56,8 +57,7 @@ def root():
             'Content-Type': 'application/vnd.slc+json',
             'Authorization': 'bearer %s' % current_user.get_id()
         })
-    print response.json()
-    return "Hello! %s" % len(response.json())
+    return json.dumps(response.json(), indent=2)
     
 
 @app.route('/callback')
