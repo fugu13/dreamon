@@ -73,11 +73,13 @@ def assist(identifier):
 def suggest(identifier):
     if request.method == 'POST':
         suggestions = request.args.getlist('course')
+        print suggestions
         database[str('suggest' + identifier)] = suggestions
         return redirect('/suggest/%s' % identifier)
     else:
         student = database[str(identifier)]
         suggestions = frozenset(database.get(str('suggest' + identifier)) or [])
+        print suggestions
         #okay, get list of clubs, courses, check ones of interest, click recommend.
         #check ones already checked
 
