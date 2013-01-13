@@ -51,7 +51,7 @@ def login():
 @login_required
 def root():
     print current_user.get_id()
-    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/studentSectionAssociations/c0b869f8403c3c1ddb1a4ffd0a25e5ed7349a7aa_ide3e17c8c6d687e1dfa9d716f380964dbb5a7578a_id/students',
+    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/sections/c0b869f8403c3c1ddb1a4ffd0a25e5ed7349a7aa_id/studentSectionAssociations/students',
         headers={
             'Accept': 'application/vnd.slc+json',
             'Content-Type': 'application/vnd.slc+json',
