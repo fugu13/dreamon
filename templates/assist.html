@@ -7,7 +7,21 @@
 {% endblock %}
 {% block content %}
 <div class="hero-unit">
-    <h1>{% if start %}{{start}}{% else %}Still dreaming...{% endif %}</h1>
+    <h1>{% if start %}{{start.accomplishment}}{% else %}Still dreaming...{% endif %}</h1>
     <p><a href="/step/{{student.id}}">{% if start %}Continue{% else %}Start{% endif %} the journey.</a></p>
+</div>
+<div>
+    {% for step in rest %}
+        <div class="row">
+            <h3>{{ loop.index }}. {{step.prompt}}</h3>
+            <div>
+                {% if step.accomplishment %}
+                    {{step.accomplishment}}
+                {% else %}
+                    <p><a href="/step/{{student.id}}">Continue the journey.</a></p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}
