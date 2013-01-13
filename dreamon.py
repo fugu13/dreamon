@@ -76,13 +76,15 @@ def assist(identifier):
             ('oranges', 'Profokiev Appreciation Society')
         ]
     ]
+    print programs
     for program in programs:
-        requests.post('https://api.sandbox.slcedu.org/api/rest/v1/programs',
+        response = requests.post('https://api.sandbox.slcedu.org/api/rest/v1/programs',
             headers={
                 'Accept': 'application/vnd.slc+json',
                 'Content-Type': 'application/vnd.slc+json',
                 'Authorization': 'bearer %s' % current_user.get_id()
             }, data=json.dumps(program))
+        print response.status_code, response.raw
 
     response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/programs',
         headers={
