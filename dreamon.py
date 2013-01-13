@@ -35,7 +35,7 @@ def callback():
             'Content-Type': 'application/vnd.slc+json',
             'Authorization': 'bearer %s' % access_token
         })
-    print response.code
+    print response.status_code
     print response.json()
     
     #print client.request('/sections')
