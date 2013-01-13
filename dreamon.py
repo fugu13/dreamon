@@ -35,6 +35,10 @@ def load_user(access_token):
 def token_user(access_hash):
     return User(awful_database[access_hash])
 
+@login_manager.unauthorized_handler
+def unauthorized():
+    return redirect('/login')
+
 @app.route('/login')
 def login():
     client = Client(auth_endpoint='https://api.sandbox.slcedu.org/api/oauth/authorize',
