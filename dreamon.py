@@ -25,11 +25,12 @@ class User(UserMixin):
     def get_auth_token(self):
         return md5(self.get_id()).hexdigest()
 
-@login_manager.user_loader
+
 def load_user(access_token):
     user = User(access_token)
     awful_database[user.get_auth_token()] = user.get_id()
     return user
+login_manager.user_loader(load_user)
 
 @login_manager.token_loader
 def token_user(access_hash):
@@ -66,6 +67,7 @@ def callback():
         redirect_uri='http://slcgoals.cloudapp.net/callback')
     client.request_token(code=request.args['code'])
     access_token = client.access_token
+    #TODO: load_user is NoneType. Just add to database and do this manually
     login_user(load_user(access_token))
     return redirect('/')
 
