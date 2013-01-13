@@ -2,7 +2,7 @@ from ConfigParser import SafeConfigParser
 
 from sanction.client import Client
 
-from flask import Flask, redirect
+from flask import Flask, redirect, request
 app = Flask(__name__)
 
 
@@ -17,6 +17,16 @@ def root():
     client = Client(auth_endpoint='https://api.sandbox.slcedu.org/api/oauth/authorize',
         client_id=client_id, redirect_uri='http://slcgoals.cloudapp.net/callback')
     return redirect(client.auth_uri())
+
+@app.route('/callback')
+def callback():
+    client = Client(token_endpoint='https://api.sandbox.slcedu.org/api/oauth/token',
+        resource_endpoint='https://api.sandbox.slcedu.org/api/rest/v1',
+        client_id=client_id, client_secret=shared_secret,
+        redirect_uri='http://slcgoals.cloudapp.net/callback')
+    client.request_token(request.args)
+    print client.request('/home')
+    return "Working!"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8765, debug=True)
