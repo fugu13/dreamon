@@ -12,14 +12,11 @@
 <form>
     {% for course in courses %}
     <div class="row">
-        <div class="span2">
-            <input type="checkbox" name="course" value="{{course.id}}" />
-        </div>
         <div class="span7">
-            {{course.courseTitle}}
+            <input type="checkbox" name="course" value="{{course.id}}" {% if course.id in suggestions %}checked="checked"{% endif %} /> {{course.courseTitle}}
         </div>
     </div>
     {% endfor %}
-<input type="submit">
+<input type="submit" value="Suggest" />
 </form>
 {% endblock %}

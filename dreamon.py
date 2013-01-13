@@ -69,21 +69,27 @@ def assist(identifier):
     student = database[str(identifier)]
     return render_template('assist.html', student=student)
 
-@app.route('/suggest/<identifier>')
+@app.route('/suggest/<identifier>', methods=['GET', 'POST'])
 def suggest(identifier):
-    student = database[str(identifier)]
-    #okay, get list of clubs, courses, check ones of interest, click recommend.
-    #check ones already checked
+    if request.method == 'POST':
+        suggestions = request.args.getlist('course')
+        database[str('suggest' + identifier)] = suggestions
+        return redirect('/suggest/%s' % identifier)
+    else:
+        student = database[str(identifier)]
+        suggestions = frozenset(database[str('suggest' + identifier)])
+        #okay, get list of clubs, courses, check ones of interest, click recommend.
+        #check ones already checked
 
-    response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/courses',
-        headers={
-            'Accept': 'application/vnd.slc+json',
-            'Content-Type': 'application/vnd.slc+json',
-            'Authorization': 'bearer %s' % current_user.get_id()
-        })
-    courses = response.json()
+        response = requests.get('https://api.sandbox.slcedu.org/api/rest/v1/courses',
+            headers={
+                'Accept': 'application/vnd.slc+json',
+                'Content-Type': 'application/vnd.slc+json',
+                'Authorization': 'bearer %s' % current_user.get_id()
+            })
+        courses = response.json()
 
-    return render_template('courses.html', courses=courses, student=student)
+        return render_template('courses.html', suggestions=suggestions, courses=courses, student=student)
 
 @app.route('/student/<identifier>')
 def student(identifier):
