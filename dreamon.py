@@ -75,6 +75,7 @@ def suggest(identifier):
         suggestions = request.form.getlist('course')
         print suggestions
         database[str('suggest' + identifier)] = suggestions
+        flash('Suggestions Saved!')
         return redirect('/suggest/%s' % identifier)
     else:
         student = database[str(identifier)]
